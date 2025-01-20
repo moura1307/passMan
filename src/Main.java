@@ -9,8 +9,8 @@ public class Main {
 
         //Frame
         JFrame frame = new JFrame("PassMan");
-        frame.setSize(1200, 800);
-        frame.setMinimumSize(new Dimension(1200, 800));
+        frame.setSize(1000, 600);
+        frame.setMinimumSize(new Dimension(1000, 600));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setResizable(true);
@@ -76,22 +76,29 @@ public class Main {
         CardLayout cardLayout = new CardLayout();
         JPanel mainPanel = new JPanel(cardLayout);
 
-        //Passwords Page
+        // Passwords Page
         JPanel passwordsPage = new JPanel();
-        JPanel backPass = new RoundedPanel(passwordsPage);
-        JPanel backPass2 = new RoundedPanel(passwordsPage);
-        JPanel backPass3 = new RoundedPanel(passwordsPage);
+        passwordsPage.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
+        passwordsPage.setLayout(new BoxLayout(passwordsPage, BoxLayout.Y_AXIS)); // Vertical arrangement
 
-        passwordsPage.add(backPass);
-        passwordsPage.add(backPass2);
-        passwordsPage.add(backPass3);
+        // Add multiple RoundedPanels
+        for (int i = 0; i < 7; i++) {
+            RoundedPanel roundedPanel = new RoundedPanel();
+            roundedPanel.addContent(roundedPanel, passwordsPage, i);
+            passwordsPage.add(roundedPanel);
+        }
+
+        // Scroll Pane
+        JScrollPane scrollPane = new JScrollPane(passwordsPage);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         //Credits Page
         JPanel creditsPage = new JPanel();
         creditsPage.add(new JLabel("This is Page 2"));
 
         // Add pages to the main panel
-        mainPanel.add(passwordsPage, "passwordsPage");
+        mainPanel.add(scrollPane, "passwordsPage");
         mainPanel.add(creditsPage, "creditsPage");
         frame.add(mainPanel, BorderLayout.CENTER);
 
