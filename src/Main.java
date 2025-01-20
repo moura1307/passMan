@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -58,8 +60,9 @@ public class Main {
         ImageIcon buttonIcon = new ImageIcon("src\\button.png");
         ImageIcon button2Icon = new ImageIcon("src\\button2.png");
         JLabel logo  = new JLabel(logoImage);
-        JButton button1 = BlankButton.createTransparentButton(sidePanel);
-        JButton button2 = BlankButton.createTransparentButton(sidePanel);
+        JButton button1 = ButtonActions.createTransparentButton(sidePanel);
+        JButton button2 = ButtonActions.createTransparentButton(sidePanel);
+        ButtonActions.buttonClickAction(button1, button2);
 
         // Dynamically resize the button icon based on the side panel size
         sidePanel.addComponentListener(new ComponentAdapter() {
