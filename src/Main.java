@@ -20,7 +20,7 @@ public class Main {
         frame.setIconImage(icon.getImage());
 
         //Panel for scroll
-        JPanel scrollPanel = new JPanel(){
+        /*JPanel scrollPanel = new JPanel(){
             @Override
             public Dimension getPreferredSize() {
                 int panelWidth = frame.getWidth() / 75;
@@ -38,7 +38,7 @@ public class Main {
                 return new Dimension(panelWidth, frame.getHeight());
             }
         };
-        scrollPanel.add(scrollBar);
+        scrollPanel.add(scrollBar);*/
 
         //Panel on side
         JPanel sidePanel = new JPanel() {
@@ -58,9 +58,8 @@ public class Main {
         ImageIcon buttonIcon = new ImageIcon("src\\button.png");
         ImageIcon button2Icon = new ImageIcon("src\\button2.png");
         JLabel logo  = new JLabel(logoImage);
-        JButton button1 = BlankButton.createTransparentButton();
-        JButton button2 = BlankButton.createTransparentButton();
-
+        JButton button1 = BlankButton.createTransparentButton(sidePanel);
+        JButton button2 = BlankButton.createTransparentButton(sidePanel);
 
         // Dynamically resize the button icon based on the side panel size
         sidePanel.addComponentListener(new ComponentAdapter() {

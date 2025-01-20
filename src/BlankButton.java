@@ -2,13 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class BlankButton {
-    public static JButton createTransparentButton() {
+    public static JButton createTransparentButton(JPanel sidePanel) {
         JButton button = new JButton() ;
 
         // Set button properties to make it transparent
-        button.setPreferredSize(new Dimension(163, 50));
+        //button.setPreferredSize(new Dimension(163, 50));
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setOpaque(false);
@@ -29,4 +31,5 @@ public class BlankButton {
 
         return button;
     }
+
 }

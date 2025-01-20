@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RoundedPanel extends JPanel {
-    private JPanel mainWindow;
+    private final JPanel mainWindow;
 
     public RoundedPanel(JPanel mainWindow) {
         this.mainWindow = mainWindow;
