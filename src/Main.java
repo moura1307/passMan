@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -60,9 +58,8 @@ public class Main {
         ImageIcon buttonIcon = new ImageIcon("src\\button.png");
         ImageIcon button2Icon = new ImageIcon("src\\button2.png");
         JLabel logo  = new JLabel(logoImage);
-        JButton button1 = ButtonActions.createTransparentButton(sidePanel);
-        JButton button2 = ButtonActions.createTransparentButton(sidePanel);
-        ButtonActions.buttonClickAction(button1, button2);
+        JButton button1 = ButtonActions.createTransparentButton();
+        JButton button2 = ButtonActions.createTransparentButton();
 
         // Dynamically resize the button icon based on the side panel size
         sidePanel.addComponentListener(new ComponentAdapter() {
@@ -76,21 +73,30 @@ public class Main {
         sidePanel.add(button1);
         sidePanel.add(button2);
 
-        //Main Window
-        JPanel mainWindow = new JPanel();
-        mainWindow.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 25));
-        frame.add(mainWindow);
+        CardLayout cardLayout = new CardLayout();
+        JPanel mainPanel = new JPanel(cardLayout);
 
-        //Panel for passwords
-        JPanel backPass = new RoundedPanel(mainWindow);
-        JPanel backPass2 = new RoundedPanel(mainWindow);
-        JPanel backPass3 = new RoundedPanel(mainWindow);
+        //Passwords Page
+        JPanel passwordsPage = new JPanel();
+        JPanel backPass = new RoundedPanel(passwordsPage);
+        JPanel backPass2 = new RoundedPanel(passwordsPage);
+        JPanel backPass3 = new RoundedPanel(passwordsPage);
 
-        mainWindow.add(backPass);
-        mainWindow.add(backPass2);
-        mainWindow.add(backPass3);
+        passwordsPage.add(backPass);
+        passwordsPage.add(backPass2);
+        passwordsPage.add(backPass3);
+
+        //Credits Page
+        JPanel creditsPage = new JPanel();
+        creditsPage.add(new JLabel("This is Page 2"));
+
+        // Add pages to the main panel
+        mainPanel.add(passwordsPage, "passwordsPage");
+        mainPanel.add(creditsPage, "creditsPage");
+        frame.add(mainPanel, BorderLayout.CENTER);
 
         //MUST STAY AT THE END /!!!\
+        ButtonActions.buttonClickAction(button1, button2, cardLayout, mainPanel);
         frame.setVisible(true);
     }
 
