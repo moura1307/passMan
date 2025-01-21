@@ -19,27 +19,6 @@ public class Main {
         ImageIcon icon = new ImageIcon("src\\icon.png");
         frame.setIconImage(icon.getImage());
 
-        //Panel for scroll
-        /*JPanel scrollPanel = new JPanel(){
-            @Override
-            public Dimension getPreferredSize() {
-                int panelWidth = frame.getWidth() / 75;
-                int panelHeight = frame.getHeight();
-                return new Dimension(panelWidth, panelHeight);
-            }
-        };
-        scrollPanel.setBackground(Color.lightGray);
-        scrollPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 0, 20));
-        frame.add(scrollPanel, BorderLayout.EAST);
-        JScrollBar scrollBar = new JScrollBar(1) {
-            @Override
-            public Dimension getPreferredSize() {
-                int panelWidth = frame.getWidth() / 75;
-                return new Dimension(panelWidth, frame.getHeight());
-            }
-        };
-        scrollPanel.add(scrollBar);*/
-
         //Panel on side
         JPanel sidePanel = new JPanel() {
             @Override
@@ -82,7 +61,7 @@ public class Main {
         passwordsPage.setLayout(new BoxLayout(passwordsPage, BoxLayout.Y_AXIS)); // Vertical arrangement
 
         // Add multiple RoundedPanels
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 20; i++) {
             RoundedPanel roundedPanel = new RoundedPanel();
             roundedPanel.addContent(roundedPanel, passwordsPage, i);
             passwordsPage.add(roundedPanel);
@@ -92,6 +71,7 @@ public class Main {
         JScrollPane scrollPane = new JScrollPane(passwordsPage);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUI(new ScrollBarDetails());
 
         //Credits Page
         JPanel creditsPage = new JPanel();

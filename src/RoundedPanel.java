@@ -24,11 +24,10 @@ class RoundedPanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Draw the rounded rectangle with a margin
-        int arcWidth = 20;  // Corner arc width
-        int arcHeight = 20; // Corner arc height
-        g2.setColor(getBackground());  // Panel background color
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);  // Fill the panel
+        int arcWidth = 20;
+        int arcHeight = 20;
+        g2.setColor(getBackground());
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
 
         // Draw the border around the rounded rectangle
         g2.setColor(Color.GRAY);  // Border color
