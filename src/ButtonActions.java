@@ -38,7 +38,6 @@ public class ButtonActions {
         addPanelButton.addActionListener(e -> {
             counter[0]++;
             RoundedPanel newPanel = new RoundedPanel();
-            newPanel.add(new JLabel("Panel " + counter[0]));
             newPanel.addContent(newPanel, passwordsPage, counter[0]);
             //passwordsPage.add(newPanel, 0);
 

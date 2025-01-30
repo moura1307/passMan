@@ -1,8 +1,5 @@
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -19,7 +16,7 @@ public class Main {
         frame.setResizable(true);
 
         //Icon
-        ImageIcon icon = new ImageIcon("src\\icon.png");
+        ImageIcon icon = new ImageIcon("src\\img/icon.png");
         frame.setIconImage(icon.getImage());
 
         //Panel on side
@@ -50,9 +47,9 @@ public class Main {
         frame.add(sidePanel, BorderLayout.WEST);
 
         //Things on the side
-        ImageIcon logoImage = new ImageIcon("src\\logo.png");
-        ImageIcon buttonIcon = new ImageIcon("src\\button.png");
-        ImageIcon button2Icon = new ImageIcon("src\\button2.png");
+        ImageIcon logoImage = new ImageIcon("src\\img/logo.png");
+        ImageIcon buttonIcon = new ImageIcon("src\\img/button.png");
+        ImageIcon button2Icon = new ImageIcon("src\\img/button2.png");
         JLabel logo  = new JLabel(logoImage);
         JButton button1 = ButtonActions.createTransparentButton();
         JButton button2 = ButtonActions.createTransparentButton();
@@ -61,7 +58,7 @@ public class Main {
         sidePanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                DynamicSide.resizeContentSide(sidePanel, logoImage, buttonIcon, button2Icon, logo, button1, button2);
+                dynamicSide.resizeContentSide(sidePanel, logoImage, buttonIcon, button2Icon, logo, button1, button2);
             }
         });
 
@@ -78,7 +75,7 @@ public class Main {
         passwordsPage.setLayout(new BoxLayout(passwordsPage, BoxLayout.Y_AXIS)); // Vertical arrangement
 
         // Add multiple RoundedPanels
-        ImageIcon newPasswordIcon = new ImageIcon("src/New_Panel.png");
+        ImageIcon newPasswordIcon = new ImageIcon("src/img/New_Panel.png");
         JButton addPanelButton = ButtonActions.createTransparentButton();
         ButtonActions.addPanelAction(addPanelButton, passwordsPage);
 
@@ -103,7 +100,7 @@ public class Main {
         };
         newPasswordPanel.addComponentListener(new ComponentAdapter() {
             @Override public void componentResized(ComponentEvent e) {
-                DynamicSide.resizePasswordPage(passwordsPage, newPasswordPanel, newPasswordIcon, addPanelButton);
+                dynamicSide.resizePasswordPage(passwordsPage, newPasswordPanel, newPasswordIcon, addPanelButton);
             }
         });
 
@@ -112,6 +109,7 @@ public class Main {
 
         // Scroll Pane
         JScrollPane scrollPane = new JScrollPane(passwordsPage);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(20);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUI(new ScrollBarDetails());
