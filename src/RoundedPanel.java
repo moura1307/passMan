@@ -4,8 +4,7 @@ import java.awt.*;
 class RoundedPanel extends JPanel {
 
     public void addContent(RoundedPanel roundedPanel, JPanel passwordsPage, int i) {
-        roundedPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Add padding
-        roundedPanel.add(new JLabel("Rounded Panel " + (i + 1)));
+        roundedPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         if(i >= 1) {
             passwordsPage.add(Box.createVerticalStrut(10));
         }
@@ -13,7 +12,7 @@ class RoundedPanel extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        int panelWidth = getParent().getWidth() - 50;
+        int panelWidth = getParent().getWidth() - 500;
         int panelHeight = getParent().getWidth() / 5;
         return new Dimension(panelWidth, panelHeight);
     }

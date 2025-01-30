@@ -32,5 +32,22 @@ public class ButtonActions {
         button2.addActionListener(e -> cardLayout.show(mainPanel, "creditsPage"));
     }
 
+    public static void addPanelAction(JButton addPanelButton, JPanel passwordsPage) {
+        final int[] counter = {0};
+
+        addPanelButton.addActionListener(e -> {
+            counter[0]++;
+            RoundedPanel newPanel = new RoundedPanel();
+            newPanel.add(new JLabel("Panel " + counter[0]));
+            newPanel.addContent(newPanel, passwordsPage, counter[0]);
+            //passwordsPage.add(newPanel, 0);
+
+            passwordsPage.add(newPanel);
+            passwordsPage.revalidate();
+            passwordsPage.repaint();
+        });
+
+
+    }
 
 }

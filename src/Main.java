@@ -1,5 +1,8 @@
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -9,8 +12,8 @@ public class Main {
 
         //Frame
         JFrame frame = new JFrame("PassMan");
-        frame.setSize(1000, 600);
-        frame.setMinimumSize(new Dimension(1000, 600));
+        frame.setSize(1200, 800);
+        frame.setMinimumSize(new Dimension(1200, 800));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setResizable(true);
@@ -23,9 +26,23 @@ public class Main {
         JPanel sidePanel = new JPanel() {
             @Override
             public Dimension getPreferredSize() {
-                int panelWidth = frame.getWidth() / 5;
-                int panelHeight = frame.getHeight();
-                return new Dimension(panelWidth, panelHeight);
+                if ((frame.getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH) {
+                    int panelWidth = frame.getWidth() / 8;
+                    int panelHeight = frame.getHeight();
+                    return new Dimension(panelWidth, panelHeight);
+                } else if (frame.getWidth() >= 2000) {
+                    int panelWidth = frame.getWidth() / 7;
+                    int panelHeight = frame.getHeight();
+                    return new Dimension(panelWidth, panelHeight);
+                } else if (frame.getWidth() >= 1500) {
+                    int panelWidth = frame.getWidth() / 6;
+                    int panelHeight = frame.getHeight();
+                    return new Dimension(panelWidth, panelHeight);
+                } else {
+                    int panelWidth = frame.getWidth() / 5;
+                    int panelHeight = frame.getHeight();
+                    return new Dimension(panelWidth, panelHeight);
+                }
             }
         };
         sidePanel.setBackground(Color.lightGray);
@@ -44,7 +61,7 @@ public class Main {
         sidePanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                dynamicSide.resizeContentSide(sidePanel, logoImage, buttonIcon, button2Icon, logo, button1, button2);
+                DynamicSide.resizeContentSide(sidePanel, logoImage, buttonIcon, button2Icon, logo, button1, button2);
             }
         });
 
@@ -61,17 +78,44 @@ public class Main {
         passwordsPage.setLayout(new BoxLayout(passwordsPage, BoxLayout.Y_AXIS)); // Vertical arrangement
 
         // Add multiple RoundedPanels
-        for (int i = 0; i < 20; i++) {
-            RoundedPanel roundedPanel = new RoundedPanel();
-            roundedPanel.addContent(roundedPanel, passwordsPage, i);
-            passwordsPage.add(roundedPanel);
-        }
+        ImageIcon newPasswordIcon = new ImageIcon("src/New_Panel.png");
+        JButton addPanelButton = ButtonActions.createTransparentButton();
+        ButtonActions.addPanelAction(addPanelButton, passwordsPage);
+
+        JPanel newPasswordPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                int arcWidth = 20;
+                int arcHeight = 20;
+                g2.setColor(getBackground());
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
+
+                // Draw the border around the rounded rectangle
+                g2.setColor(Color.GRAY);  // Border color
+                g2.setStroke(new BasicStroke(2));  // Border width
+                g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, arcWidth, arcHeight);  // Border around the panel
+            }
+        };
+        newPasswordPanel.addComponentListener(new ComponentAdapter() {
+            @Override public void componentResized(ComponentEvent e) {
+                DynamicSide.resizePasswordPage(passwordsPage, newPasswordPanel, newPasswordIcon, addPanelButton);
+            }
+        });
+
+        passwordsPage.add(newPasswordPanel);
+        newPasswordPanel.add(addPanelButton);
 
         // Scroll Pane
         JScrollPane scrollPane = new JScrollPane(passwordsPage);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUI(new ScrollBarDetails());
+        scrollPane.setBorder(null);
 
         //Credits Page
         JPanel creditsPage = new JPanel();
@@ -85,6 +129,7 @@ public class Main {
         //MUST STAY AT THE END /!!!\
         ButtonActions.buttonClickAction(button1, button2, cardLayout, mainPanel);
         frame.setVisible(true);
+
     }
 
 }
